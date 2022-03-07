@@ -1,6 +1,11 @@
 package server
 
-import "github.com/gin-gonic/gin"
+import (
+	"log"
+
+	"github.com/FSDelite/go-rest-api/server/routes"
+	"github.com/gin-gonic/gin"
+)
 
 type Server struct {
 	port   string
@@ -15,5 +20,7 @@ func NewServer() Server {
 }
 
 func (s *Server) Run() {
-
+	router := routes.ConfigRoutes(s.server)
+	log.Print("server running at port " + s.port)
+	log.Fatal(router.Run(":" + s.port))
 }
